@@ -4,9 +4,9 @@
             <th class="text-center">
                 <input type="checkbox" value="" id="checkAll" class="input-checkbox">
             </th>
-            <th class="text-center">Tên nhóm</th>
-            <th class="text-center">Tình trạng</th>
-            <th class="text-center">Thao tác</th>
+            <th class="text-center">{{ __('messages.groupName') }}</th>
+            <th class="text-center">{{ __('messages.status') }}</th>
+            <th class="text-center">{{ __('messages.operation') }}</th>
         </tr>
     </thead>
     <tbody>

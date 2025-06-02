@@ -5,17 +5,17 @@
 
 <title>INSPINIA | Dashboard v.2</title>
 
-<link href="backend/css/bootstrap.min.css" rel="stylesheet" />
-<link href="backend/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href={{ asset('backend/css/bootstrap.min.css') }} rel="stylesheet" />
+<link href={{ asset('backend/font-awesome/css/font-awesome.css') }} rel="stylesheet" />
 
-<link href="backend/css/animate.css" rel="stylesheet" />
+<link href={{ asset('backend/css/animate.css') }} rel="stylesheet" />
 @if (isset($config['css']) && is_array($config['css']))
     @foreach ($config['css'] as $val)
-        <link rel="stylesheet" href="{{ $val }}" />
+        <link rel="stylesheet" href="{{ asset($val) }}" />
     @endforeach
 @endif
-<link href="backend/css/style.css" rel="stylesheet" />
-<link href="backend/css/customize.css" rel="stylesheet" />
+<link href={{ asset('backend/css/style.css') }} rel="stylesheet" />
+<link href={{ asset('backend/css/customize.css') }} rel="stylesheet" />
 <script>
     const BASE_URL = "{{ env('APP_URL') }}"
 </script>

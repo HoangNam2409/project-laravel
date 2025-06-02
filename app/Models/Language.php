@@ -19,6 +19,7 @@ class Language extends Model
         'publish',
         'image',
         'user_id',
+        'current',
     ];
 
     public function post_catalogues()

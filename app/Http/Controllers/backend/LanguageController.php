@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateLanguageRequest;
 use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
 use App\Services\Interfaces\LanguageServiceInterface as LanguageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class LanguageController extends Controller
 {
@@ -97,6 +99,20 @@ class LanguageController extends Controller
         }
 
         return redirect()->route('language.index')->with('error', 'Xoá bản ghi không thành công.');
+    }
+
+    // Switch backend language
+    public function switchBackendLanguage($canonical)
+    {
+        if ($this->languageService->switch($canonical)) {
+            // Session::put('app_locale', $canonical);
+            session(['app_locale' => $canonical]);
+            App::setLocale($canonical);
+        };
+
+        // echo App::getLocale();
+
+        return redirect()->back();
     }
 
     // Config

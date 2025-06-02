@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
-use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
+// use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use Illuminate\Http\Request;
 
@@ -15,17 +15,17 @@ class PostController extends Controller
 {
     protected $postService;
     protected $postRepository;
-    protected $languageRepository;
+    // protected $languageRepository;
     protected $nestedset;
 
     public function __construct(
         PostService $postService,
         PostRepository $postRepository,
-        LanguageRepository $languageRepository,
+        // LanguageRepository $languageRepository,
     ) {
         $this->postService = $postService;
         $this->postRepository = $postRepository;
-        $this->languageRepository = $languageRepository;
+        // $this->languageRepository = $languageRepository;
         $this->nestedset = new Nestedsetbie([
             'table' => 'post_catalogues',
             'foreignkey' => 'post_catalogue_id',
@@ -41,9 +41,8 @@ class PostController extends Controller
         $config['seo'] = config('apps.post');
         $template = 'backend.post.post.index';
         $dropdown = $this->nestedset->Dropdown();
-        $language = $this->languageRepository->all();
 
-        return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown', 'language'));
+        return view('backend.dashboard.layout', compact('template', 'config', 'posts', 'dropdown'));
     }
 
     // Create

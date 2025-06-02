@@ -1,5 +1,5 @@
 <?php
-$title = $config['method'] == 'create' ? $config['seo']['create']['title'] : $config['seo']['edit']['title'];
+$title = $config['method'] == 'create' ? __('messages.postCatalogue.create.title') : __('messages.postCatalogue.edit.title');
 $url = $config['method'] == 'create' ? route('post.catalogue.store') : route('post.catalogue.update', $post_catalogue->id);
 ?>
 
@@ -14,7 +14,7 @@ $url = $config['method'] == 'create' ? route('post.catalogue.store') : route('po
             <div class="col-lg-9">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Thông tin chung</h5>
+                        <h5>{{ __('messages.infoGeneral') }}</h5>
                     </div>
                     <div class="ibox-content">
                         @include('backend.post.catalogue.components.general')
@@ -26,7 +26,7 @@ $url = $config['method'] == 'create' ? route('post.catalogue.store') : route('po
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Cấu hình SEO</h5>
+                        <h5>{{ __('messages.configSEO') }}</h5>
                     </div>
                     <div class="ibox-content">
                         @include('backend.post.catalogue.components.seo')
@@ -42,8 +42,8 @@ $url = $config['method'] == 'create' ? route('post.catalogue.store') : route('po
 
         {{-- Submit --}}
         <div class="text-right mb-15">
-            <button type="submit" name="send" value="send" class="btn btn-primary">Lưu
-                lại</button>
+            <button type="submit" name="send" value="send"
+                class="btn btn-primary">{{ __('messages.save') }}</button>
         </div>
     </div>
 </form>

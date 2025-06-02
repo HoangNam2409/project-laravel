@@ -12,7 +12,7 @@ use App\Http\Controllers\backend\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Post Request
-Route::prefix('post')->middleware(['authenticate'])->group(function () {
+Route::prefix('post')->middleware(['authenticate', 'locate'])->group(function () {
     Route::get('index', [PostController::class, 'index'])->name('post.index');
     Route::get('create', [PostController::class, 'create'])->name('post.create');
     Route::post('store', [PostController::class, 'store'])->name('post.store');
@@ -23,7 +23,7 @@ Route::prefix('post')->middleware(['authenticate'])->group(function () {
 });
 
 // Post Catalogue Request
-Route::prefix('post/catalogue')->middleware(['authenticate'])->group(function () {
+Route::prefix('post/catalogue')->middleware(['authenticate', 'locate'])->group(function () {
     Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
     Route::get('create', [PostCatalogueController::class, 'create'])->name('post.catalogue.create');
     Route::post('store', [PostCatalogueController::class, 'store'])->name('post.catalogue.store');
@@ -34,7 +34,7 @@ Route::prefix('post/catalogue')->middleware(['authenticate'])->group(function ()
 });
 
 // User Catalogue Request
-Route::prefix('user/catalogue')->middleware(['authenticate'])->group(function () {
+Route::prefix('user/catalogue')->middleware(['authenticate', 'locate'])->group(function () {
     Route::get('index', [UserCatalogueController::class, 'index'])->name('user.catalogue.index');
     Route::get('create', [UserCatalogueController::class, 'create'])->name('user.catalogue.create');
     Route::post('store', [UserCatalogueController::class, 'store'])->name('user.catalogue.store');
@@ -45,7 +45,7 @@ Route::prefix('user/catalogue')->middleware(['authenticate'])->group(function ()
 });
 
 // User Request
-Route::prefix('user')->middleware(['authenticate'])->group(function () {
+Route::prefix('user')->middleware(['authenticate', 'locate'])->group(function () {
     Route::get('index', [UserController::class, 'index'])->name('user.index');
     Route::get('create', [UserController::class, 'create'])->name('user.create');
     Route::post('store', [UserController::class, 'store'])->name('user.store');
@@ -56,7 +56,7 @@ Route::prefix('user')->middleware(['authenticate'])->group(function () {
 });
 
 // Languages Request
-Route::prefix('language')->middleware(['authenticate'])->group(function () {
+Route::prefix('language')->middleware(['authenticate', 'locate'])->group(function () {
     Route::get('index', [LanguageController::class, 'index'])->name('language.index');
     Route::get('create', [LanguageController::class, 'create'])->name('language.create');
     Route::post('store', [LanguageController::class, 'store'])->name('language.store');
@@ -64,6 +64,7 @@ Route::prefix('language')->middleware(['authenticate'])->group(function () {
     Route::post('{id}/update', [LanguageController::class, 'update'])->where('id', '[0-9]+')->name('language.update');
     Route::get('{id}/delete', [LanguageController::class, 'delete'])->where('id', '[0-9]+')->name('language.delete');
     Route::delete('{id}/destroy', [LanguageController::class, 'destroy'])->where('id', '[0-9]+')->name('language.destroy');
+    Route::get('{canonical}/switch', [LanguageController::class, 'switchBackendLanguage'])->where('id', '[A-Za-z]+')->name('language.switch');
 });
 
 // AJAX
@@ -75,7 +76,7 @@ Route::prefix('ajax')->group(function () {
 
 
 // Dashboard Request
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('authenticate');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('authenticate', 'locate');
 
 // Auth Request
 Route::get('/admin', [AuthController::class, 'index'])->name('auth.admin')->middleware('login');

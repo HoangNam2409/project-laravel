@@ -6,10 +6,11 @@
         <i class="fa fa-wrench"></i>
     </a>
     <ul class="dropdown-menu dropdown-user">
-        <li><a class="changeStatusAll" data-value="1" data-field="publish" data-model="{{ $config['model'] }}">Publish</a>
+        <li><a class="changeStatusAll" data-value="1" data-field="publish"
+                data-model="{{ $config['model'] }}">{{ __('messages.pub') }}</a>
         </li>
         <li><a class="changeStatusAll" data-value="2" data-field="publish"
-                data-model="{{ $config['model'] }}">Unpublish</a>
+                data-model="{{ $config['model'] }}">{{ __('messages.unpub') }}</a>
         </li>
     </ul>
     <a class="close-link">

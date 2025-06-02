@@ -332,6 +332,10 @@ a {
     height: 60px;
 }
 
+.language-item.active {
+    background-color: #1ab394;
+}
+
 .navbar-language {
     display: flex;
     align-items: center;

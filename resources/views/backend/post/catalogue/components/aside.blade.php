@@ -1,13 +1,13 @@
 {{-- Chọn danh mục cha --}}
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Chọn danh mục cha</h5>
+        <h5>{{ __('messages.parent') }}</h5>
     </div>
     <div class="ibox-content">
         <div class="row mb-15">
             <div class="col-lg-12">
                 <div class="form-row">
-                    <span class="text-danger notice">* Chọn root nếu không có danh mục cha</span>
+                    <span class="text-danger notice">* {{ __('messages.parent_notice') }}</span>
                     <select name="parent_id" class="form-control setupSelect2">
                         @foreach ($dropdown as $key => $val)
                             <option @if ($key == old('parent_id', $post_catalogue->parent_id ?? '0')) selected @endif value="{{ $key }}">
@@ -26,7 +26,7 @@
 {{-- Image --}}
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Chọn ảnh đại diện</h5>
+        <h5>{{ __('messages.avatar') }}</h5>
     </div>
     <div class="ibox-content">
         <div class="row mb-15">
@@ -44,14 +44,14 @@
 {{-- Cấu hình nâng cao --}}
 <div class="ibox">
     <div class="ibox-title">
-        <h5>Cấu hình nâng cao</h5>
+        <h5>{{ __('messages.advanced') }}</h5>
     </div>
     <div class="ibox-content">
         <div class="row mb-15">
             <div class="col-lg-12">
                 <div class="mb-20">
                     <select name="publish" class="form-control setupSelect2">
-                        @foreach (config('apps.general.publish') as $key => $val)
+                        @foreach (__('messages.publish') as $key => $val)
                             <option @if ($key == old('publish', $post_catalogue->publish ?? '0')) selected @endif value="{{ $key }}">
                                 {{ $val }}</option>
                         @endforeach
@@ -59,7 +59,7 @@
                 </div>
 
                 <select name="follow" class="form-control setupSelect2">
-                    @foreach (config('apps.general.follow') as $key => $val)
+                    @foreach (__('messages.follow') as $key => $val)
                         <option @if ($key == old('follow', $post_catalogue->follow ?? '0')) selected @endif value="{{ $key }}">
                             {{ $val }}</option>
                     @endforeach

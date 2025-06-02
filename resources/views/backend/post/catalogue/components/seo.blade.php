@@ -17,8 +17,7 @@
             <div class="form-row">
                 <label for="" class="control-label">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        Tiêu đề SEO
-                        <span class="count">0 ký tự</span>
+                        {{ __('messages.seo_title') }}
                     </div>
                 </label>
                 <input type="text" name="meta_title"
@@ -34,8 +33,7 @@
             <div class="form-row">
                 <label for="" class="control-label">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        Từ khoá SEO
-                        <span class="count">0 ký tự</span>
+                        {{ __('messages.seo_keyword') }}
                     </div>
                 </label>
                 <input type="text" name="meta_keyword"
@@ -50,7 +48,7 @@
         <div class="col-lg-12">
             <div class="form-row">
                 <label for="" class="control-label">
-                    Đường dẫn
+                    {{ __('messages.seo_canonical') }}
                 </label>
                 <div class="input-wrapper">
                     <input type="text" name="canonical"
@@ -71,8 +69,7 @@
             <div class="form-row">
                 <label for="" class="control-label">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        Mô tả SEO
-                        <span class="count">0 ký tự</span>
+                        {{ __('messages.seo_description') }}
                     </div>
                 </label>
                 <textarea name="meta_description" class="form-control">{{ old('meta_description', $post_catalogue->meta_description ?? '') }}</textarea>

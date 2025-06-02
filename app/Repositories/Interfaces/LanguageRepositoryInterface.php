@@ -21,6 +21,7 @@ interface LanguageRepositoryInterface
     public function all();
     public function create(array $payload);
     public function update(int $id, array $payload = []);
+    public function updateByWhere(array $condition = [], array $payload = []);
     public function updateByWhereIn(string $field, array $whereIn = [], array $payload = []);
     public function destroy(int $id);
     public function softDelete(int $id);

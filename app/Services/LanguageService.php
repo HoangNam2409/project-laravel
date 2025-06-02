@@ -139,6 +139,28 @@ class LanguageService implements LanguageServiceInterface
         }
     }
 
+    // Switch language
+    public function switch($canonical)
+    {
+        $where = [
+            ['canonical', '!=', $canonical],
+        ];
+        $payload = ['current' => 0];
+
+        DB::beginTransaction();
+        try {
+            $this->languageRepository->updateByWhere([['canonical', '=', $canonical]], ['current' => 1]);
+            $this->languageRepository->updateByWhere($where, $payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            echo $e->getMessage();
+            die();
+            return false;
+        }
+    }
+
     // Change Status User
     // private function changeStatusUser($post = [], array $payload = [])
     // {

@@ -13,9 +13,10 @@
         <ul class="nav navbar-top-links navbar-right navbar-language">
             <li>
                 <div class="uk-flex uk-flex-middle">
-                    @foreach ($language as $key => $val)
-                        <a href="" class="language-item"><img class="image-cover" src="{{ $val->image }}"
-                                alt=""></a>
+                    @foreach ($languages as $language)
+                        <a href="{{ route('language.switch', $language->canonical) }}"
+                            class="language-item {{ $language->current == 1 ? 'active' : '' }}"><img class="image-cover"
+                                src="{{ $language->image }}" alt=""></a>
                     @endforeach
                 </div>
             </li>

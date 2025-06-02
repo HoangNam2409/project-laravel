@@ -74,6 +74,17 @@ class BaseRepository implements BaseRepositoryInterface
         return $model->update($payload);
     }
 
+    // Update Where
+    public function updateByWhere(array $condition = [], array $payload = [])
+    {
+        $query = $this->model->newQuery();
+        foreach ($condition as $key => $val) {
+            $query->where(...$val);
+        }
+
+        return $query->update($payload);
+    }
+
     // Update Where in
     public function updateByWhereIn(string $field, array $whereIn = [], array $payload = [])
     {

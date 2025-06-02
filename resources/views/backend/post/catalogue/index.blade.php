@@ -1,5 +1,5 @@
 {{-- Breadcumv --}}
-@include('backend.dashboard.components.breadcumb', ['title' => $config['seo']['index']['title']])
+@include('backend.dashboard.components.breadcumb', ['title' => __('messages.postCatalogue.index.title')])
 
 {{-- Table --}}
 <div class="row mt-20">
@@ -7,7 +7,7 @@
         <div class="ibox float-e-margins">
             {{-- Title --}}
             <div class="ibox-title">
-                <h5 class="table-heading">{{ $config['seo']['index']['tableHeading'] }}</h5>
+                <h5 class="table-heading">{{ __('messages.postCatalogue.index.tableHeading') }}</h5>
                 {{-- ToolBox --}}
                 @include('backend.post.catalogue.components.toolbox')
             </div>
