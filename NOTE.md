@@ -109,3 +109,13 @@ post_catalogue_post:
 -   meta_title: tiêu đề SEO
 -   meta_description: mô tả SEO
 -   meta_keyword: từ khoá SEO
+
+Tạo ra bảng routers để lưu các url
+
+-   id
+-   canonical
+-   module_id
+-   created_at
+-   updated_at
+-   deleted_at
+-   controllers

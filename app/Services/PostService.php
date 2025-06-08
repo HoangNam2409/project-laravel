@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Interfaces\PostServiceInterface;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
+use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,23 +19,29 @@ class PostService extends BaseService implements PostServiceInterface
 {
     protected $postRepository;
     protected $userRepository;
+    protected $routerRepository;
 
     public function __construct(
         PostRepository $postRepository,
         UserRepository $userRepository,
+        RouterRepository $routerRepository,
     ) {
+        parent::__construct($routerRepository);
         $this->postRepository = $postRepository;
         $this->userRepository = $userRepository;
+        $this->controller_name = 'PostController';
     }
 
     // Paginate
     public function paginate($request)
     {
         $column = $this->paginateSelect();
-        $condition['keyword'] = $request->input('keyword');
-        $condition['publish'] = $request->input('publish');
-        $condition['where'] = [
-            ['tb2.language_id', '=', '1'],
+        $condition = [
+            'keyword' => $request->input('keyword'),
+            'publish' => $request->input('publish'),
+            'where' => [
+                ['tb2.language_id', '=', '1'],
+            ],
         ];
         $join = [
             [
@@ -91,6 +98,9 @@ class PostService extends BaseService implements PostServiceInterface
                 }
 
                 $newPost->post_catalogues()->sync($catalogue);
+
+                // Thêm dữ liệu url
+                $this->createRouter($newPost, $payloadLanguage['canonical']);
             }
 
 
@@ -131,6 +141,9 @@ class PostService extends BaseService implements PostServiceInterface
                     $catalogue[] = $request->input('post_catalogue_id');
                 }
                 $post->post_catalogues()->sync($catalogue);
+
+                // Cập nhật dữ liệu url
+                $this->updateRouter($post, $payloadLanguage['canonical']);
             }
             DB::commit();
 

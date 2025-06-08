@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
         // Location
         'App\Repositories\Interfaces\ProvinceRepositoryInterface' => 'App\Repositories\ProvinceRepository',
         'App\Repositories\Interfaces\DistrictRepositoryInterface' => 'App\Repositories\DistrictRepository',
+        // Router
+        // 'App\Services\Interfaces\RouterServiceInterface' => 'App\Services\RouterService',
+        'App\Repositories\Interfaces\RouterRepositoryInterface' => 'App\Repositories\RouterRepository',
     ];
 
     /**

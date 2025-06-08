@@ -26,8 +26,10 @@ class UserService implements UserServiceInterface
     public function paginate($request)
     {
         $column = ['id', 'email', 'name', 'phone', 'address', 'image', 'publish'];
-        $condition['keyword'] = $request->input('keyword');
-        $condition['publish'] = $request->input('publish');
+        $condition = [
+            'keyword' => $request->input('keyword'),
+            'publish' => $request->input('publish'),
+        ];
         $perpage = ($request->integer('perpage') != 0) ? $request->integer('perpage') : 20;
         $extend = ['path' => 'user/index'];
 

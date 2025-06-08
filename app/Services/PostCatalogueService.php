@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\PostcatalogueServiceInterface;
 use App\Classes\Nestedsetbie;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
+use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,15 +20,19 @@ use Illuminate\Support\Str;
 class PostCatalogueService extends BaseService implements PostCatalogueServiceInterface
 {
     protected $postCatalogueRepository;
+    protected $routerRepository;
     protected $userRepository;
     protected $nestedset;
 
     public function __construct(
         PostCatalogueRepository $postCatalogueRepository,
+        RouterRepository $routerRepository,
         UserRepository $userRepository,
     ) {
         $this->postCatalogueRepository = $postCatalogueRepository;
+        $this->routerRepository = $routerRepository;
         $this->userRepository = $userRepository;
+        $this->controller_name = 'PostCatalogueController';
         $this->nestedset = new Nestedsetbie([
             'table' => 'post_catalogues',
             'foreignkey' => 'post_catalogue_id',
@@ -46,10 +51,12 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             'tb2.name',
             'tb2.canonical'
         ];
-        $condition['keyword'] = $request->input('keyword');
-        $condition['publish'] = $request->input('publish');
-        $condition['where'] = [
-            ['tb2.language_id', '=', '1'],
+        $condition = [
+            'keyword' => $request->input('keyword'),
+            'publish' => $request->input('publish'),
+            'where' => [
+                ['tb2.language_id', '=', '1'],
+            ],
         ];
         $join = [
             [
@@ -86,11 +93,13 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                 $payloadLanguage['post_catalogue_id'] = $newPostCatalogue->id;
 
                 $this->postCatalogueRepository->createPivot($newPostCatalogue, $payloadLanguage, 'languages');
-                $this->nestedset->Get();
-                $this->nestedset->Recursive(0, $this->nestedset->Set());
-                $this->nestedset->Action();
-            }
 
+                // Thêm dữ liệu url vào bảng routers
+                $this->createRouter($newPostCatalogue, $payloadLanguage['canonical']);
+
+                // Nested
+                $this->nestedset();
+            }
 
             DB::commit();
             return true;
@@ -102,7 +111,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
         }
     }
 
-    // Update User
+    // Update Store
     public function update($id, $request)
     {
         DB::beginTransaction();
@@ -122,10 +131,12 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                 $this->postCatalogueRepository->detachPivot($postCatalogue, $payloadLanguage, 'languages');
                 // Thêm bản ghi mới vào trong bảng pivot
                 $this->postCatalogueRepository->createPivot($postCatalogue, $payloadLanguage, 'languages');
+
+                // Update dữ liệu url
+                $this->updateRouter($postCatalogue, $payloadLanguage['canonical']);
+
                 // Update Nested Set
-                $this->nestedset->Get();
-                $this->nestedset->Recursive(0, $this->nestedset->Set());
-                $this->nestedset->Action();
+                $this->nestedset();
             }
             DB::commit();
 
@@ -238,5 +249,13 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
     private function payloadLanguage($request)
     {
         return $request->only('name', 'canonical', 'description', 'content', 'meta_title', 'meta_keyword', 'meta_description');
+    }
+
+    // Nested Set
+    private function nestedset()
+    {
+        $this->nestedset->Get();
+        $this->nestedset->Recursive(0, $this->nestedset->Set());
+        $this->nestedset->Action();
     }
 }

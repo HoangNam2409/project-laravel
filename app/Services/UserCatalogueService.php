@@ -30,8 +30,10 @@ class UserCatalogueService implements UserCatalogueServiceInterface
     public function paginate($request)
     {
         $column = ['id', 'name', 'description', 'publish'];
-        $condition['keyword'] = $request->input('keyword');
-        $condition['publish'] = $request->input('publish');
+        $condition = [
+            'keyword' => $request->input('keyword'),
+            'publish' => $request->input('publish'),
+        ];
         $relations = ['users'];
         $perpage = ($request->integer('perpage') != 0) ? $request->integer('perpage') : 20;
         $extend = ['path' => 'user/catalogue/index'];
