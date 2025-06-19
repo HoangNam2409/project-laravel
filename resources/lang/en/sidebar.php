@@ -8,12 +8,16 @@ return [
             'segment' => ['user'],
             'subModule' => [
                 [
-                    'title' => 'Member Group Management',
+                    'title' => 'Member Group',
                     'route' => 'user.catalogue.index',
                 ],
                 [
-                    'title' => 'Member Management',
+                    'title' => 'Member',
                     'route' => 'user.index',
+                ],
+                [
+                    'title' => 'Permission',
+                    'route' => 'permission.index',
                 ],
             ]
         ],
@@ -24,11 +28,11 @@ return [
             'segment' => ['post'],
             'subModule' => [
                 [
-                    'title' => 'Post Category Management',
+                    'title' => 'Post Category',
                     'route' => 'post.catalogue.index',
                 ],
                 [
-                    'title' => 'Post Management',
+                    'title' => 'Post',
                     'route' => 'post.index',
                 ],
             ]
@@ -40,7 +44,7 @@ return [
             'segment' => ['language'],
             'subModule' => [
                 [
-                    'title' => 'Language Management',
+                    'title' => 'Language',
                     'route' => 'language.index',
                 ],
             ]

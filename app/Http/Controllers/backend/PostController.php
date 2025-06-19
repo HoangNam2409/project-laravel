@@ -10,6 +10,7 @@ use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 // use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -36,6 +37,7 @@ class PostController extends Controller
     // Index
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'post.index');
         $posts = $this->postService->paginate($request);
         $config = $this->config();
         $config['seo'] = config('apps.post');
@@ -48,6 +50,7 @@ class PostController extends Controller
     // Create
     public function create()
     {
+        Gate::authorize('modules', 'post.create');
         $config = $this->config_general();
         $config['seo'] = config('apps.post');
         $config['method'] = 'create';
@@ -71,6 +74,7 @@ class PostController extends Controller
     // Edit
     public function edit($id)
     {
+        Gate::authorize('modules', 'post.update');
         $language_id = 1;
         $post = $this->postRepository->getPostById($id, $language_id);
         $config = $this->config_general();
@@ -97,6 +101,7 @@ class PostController extends Controller
     // Delete
     public function delete($id)
     {
+        Gate::authorize('modules', 'post.destroy');
         $language_id = 1;
         $post = $this->postRepository->getPostById($id, $language_id);
         $config['seo'] = config('apps.post');

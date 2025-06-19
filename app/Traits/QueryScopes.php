@@ -90,7 +90,7 @@ trait QueryScopes
     {
         if (is_array($orderBy) && count($orderBy)) {
             foreach ($orderBy as $key => $val) {
-                $query->orderBy($key, $val);
+                $query->orderBy(...$val);
             }
         }
 

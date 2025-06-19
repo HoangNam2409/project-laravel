@@ -66,7 +66,9 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
                 'post_catalogues.id',
             ]
         ];
-        $orderBy = ['post_catalogues.left' => 'asc'];
+        $orderBy = [
+            ['post_catalogues.left', 'asc']
+        ];
         $perpage = ($request->integer('perpage') != 0) ? $request->integer('perpage') : 20;
         $extend = ['path' => 'post/catalogue/index'];
 

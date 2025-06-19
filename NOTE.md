@@ -119,3 +119,21 @@ Tạo ra bảng routers để lưu các url
 -   updated_at
 -   deleted_at
 -   controllers
+
+## Chức năng phân quyền
+
+-   Cần có 5 bảng:
+    users
+    user_catalogues
+    user_catalogue_user
+    permission
+    user_catalogue_permission
+
+permission:
+
+-   id
+-   name: Thêm mới, sửa, xoá, vv...
+-   canonical: post.index, post.update, vv...
+
+Tạo bảng user_catalouge_permisison
+Modle UserCatalogue với Model Permission là quan hệ N - N

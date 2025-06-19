@@ -9,7 +9,19 @@ use App\Http\Controllers\backend\PostCatalogueController;
 use App\Http\Controllers\backend\UserCatalogueController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\PostController;
+use App\Http\Controllers\backend\PermissionController;
 use Illuminate\Support\Facades\Route;
+
+// Permission Request
+Route::prefix('permission')->middleware(['authenticate', 'locate'])->group(function () {
+    Route::get('index', [PermissionController::class, 'index'])->name('permission.index');
+    Route::get('create', [PermissionController::class, 'create'])->name('permission.create');
+    Route::post('store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::get('{id}/edit', [PermissionController::class, 'edit'])->where('id', '[0-9]+')->name('permission.edit');
+    Route::post('{id}/update', [PermissionController::class, 'update'])->where('id', '[0-9]+')->name('permission.update');
+    Route::get('{id}/delete', [PermissionController::class, 'delete'])->where('id', '[0-9]+')->name('permission.delete');
+    Route::delete('{id}/destroy', [PermissionController::class, 'destroy'])->where('id', '[0-9]+')->name('permission.destroy');
+});
 
 // Post Request
 Route::prefix('post')->middleware(['authenticate', 'locate'])->group(function () {
@@ -42,6 +54,8 @@ Route::prefix('user/catalogue')->middleware(['authenticate', 'locate'])->group(f
     Route::post('{id}/update', [UserCatalogueController::class, 'update'])->where('id', '[0-9]+')->name('user.catalogue.update');
     Route::get('{id}/delete', [UserCatalogueController::class, 'delete'])->where('id', '[0-9]+')->name('user.catalogue.delete');
     Route::delete('{id}/destroy', [UserCatalogueController::class, 'destroy'])->where('id', '[0-9]+')->name('user.catalogue.destroy');
+    Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
+    Route::post('permission/update', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.update.permission');
 });
 
 // User Request

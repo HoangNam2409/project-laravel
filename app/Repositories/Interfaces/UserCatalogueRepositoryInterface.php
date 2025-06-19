@@ -8,6 +8,7 @@ namespace App\Repositories\Interfaces;
  */
 interface UserCatalogueRepositoryInterface
 {
+    public function all();
     public function paginate(
         array $column = ['*'],
         array $condition = [],

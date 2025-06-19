@@ -3,8 +3,8 @@
 return [
     'postCatalogue' => [
         'index' => [
-            'title' => 'Post Group Management',
-            'tableHeading' => 'Post Group List',
+            'title' => 'Post Group',
+            'tableHeading' => 'List of Post Groups',
         ],
         'create' => [
             'title' => 'Add New Post Group',
@@ -16,11 +16,27 @@ return [
             'title' => 'Delete Post Group',
         ]
     ],
-    'perpage' => 'records per page',
+
+    'permission' => [
+        'index' => [
+            'title' => 'Permission',
+            'tableHeading' => 'List of Permissions',
+        ],
+        'create' => [
+            'title' => 'Add New Permission',
+        ],
+        'edit' => [
+            'title' => 'Update Permission',
+        ],
+        'delete' => [
+            'title' => 'Delete Permission',
+        ]
+    ],
+    'perpage' => 'records',
     'search' => 'Search',
-    'placeHolder' => 'Enter keyword you want to search...',
+    'placeHolder' => 'Enter keywords to search...',
     'publish' => [
-        '0' => 'Select status',
+        '0' => 'Select Status',
         '1' => 'Publish',
         '2' => 'Unpublish',
     ],
@@ -40,15 +56,17 @@ return [
     'title' => 'Title',
     'description' => 'Short Description',
     'content' => 'Content',
-    'album' => 'Photo Album',
+    'album' => 'Image Album',
     'chooseImage' => 'Choose Image',
-    'albumDescription' => 'Use the choose image button or click here to add photos',
+    'albumDescription' => 'Use the choose image button or click here to add images',
     'seo_title' => 'SEO Title',
     'seo_keyword' => 'SEO Keywords',
     'seo_canonical' => 'Canonical URL',
     'seo_description' => 'SEO Description',
     'parent' => 'Select Parent Category',
-    'parent_notice' => 'Choose root if there is no parent category',
-    'avatar' => 'Choose Avatar',
-    'advanced' => 'Advanced Configuration'
+    'parent_notice' => 'Select root if there is no parent category',
+    'avatar' => 'Select Avatar',
+    'advanced' => 'Advanced Configuration',
+    'permission_name' => 'Permission Name',
+    'canonical' => 'Canonical',
 ];

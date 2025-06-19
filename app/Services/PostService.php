@@ -57,7 +57,9 @@ class PostService extends BaseService implements PostServiceInterface
                 'tb3.post_id',
             ]
         ];
-        $orderBy = ['posts.id' => 'desc'];
+        $orderBy = [
+            ['posts.id', 'desc']
+        ];
         $perpage = ($request->integer('perpage') != 0) ? $request->integer('perpage') : 20;
         $extend = ['path' => 'post/index', 'groupBy' => $this->paginateSelect()];
 
@@ -148,7 +150,6 @@ class PostService extends BaseService implements PostServiceInterface
             DB::commit();
 
             return $updatePost;
-            dd($payload);
         } catch (\Exception $e) {
             DB::rollBack();
             echo $e->getMessage();

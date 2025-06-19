@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepositor
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -30,6 +31,7 @@ class UserController extends Controller
     // Index
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'user.index');
         $users = $this->userService->paginate($request);
         $config = $this->config();
         $config['seo'] = config('apps.user');
@@ -41,6 +43,7 @@ class UserController extends Controller
     // Create
     public function create()
     {
+        Gate::authorize('modules', 'user.create');
         $provinces = $this->provinceRepository->all();
         $config = $this->config_general();
         $config['seo'] = config('apps.user');
@@ -63,6 +66,7 @@ class UserController extends Controller
     // Edit
     public function edit($id)
     {
+        Gate::authorize('modules', 'user.update');
         $user = $this->userRepository->findById($id);
         $provinces = $this->provinceRepository->all();
         $config = $this->config_general();
@@ -87,6 +91,7 @@ class UserController extends Controller
     // Delete
     public function delete($id)
     {
+        Gate::authorize('modules', 'user.destroy');
         $user = $this->userRepository->findById($id);
         $config['seo'] = config('apps.user');
         $template = 'backend.user.user.delete';

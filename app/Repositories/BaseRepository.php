@@ -19,9 +19,9 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // All
-    public function all()
+    public function all(array $relation = [])
     {
-        return $this->model::all();
+        return $this->model->with($relation)->get();
     }
 
     // Find by Id
@@ -39,7 +39,7 @@ class BaseRepository implements BaseRepositoryInterface
         array $condition = [],
         array $relations = [],
         array $join = [],
-        array $orderBy = ['id', 'DESC'],
+        array $orderBy = [['id', 'desc']],
         int $perpage = 20,
         $extend = [],
         array $rawQuery = [],
@@ -48,13 +48,13 @@ class BaseRepository implements BaseRepositoryInterface
 
         return $query->keyword($condition['keyword'] ?? null)
             ->publish($condition['publish'] ?? null)
-            ->customWhere($condition['where'] ?? null)
-            ->customWhereRaw($rawQuery['whereRaw'] ?? null)
-            ->relationCount($relations ?? null)
-            ->relation($relations ?? null)
-            ->customJoin($join ?? null)
-            ->customGroupBy($extend['groupBy'] ?? null)
-            ->customOrderBy($orderBy ?? null)
+            ->customWhere($condition['where'] ?? [])
+            ->customWhereRaw($rawQuery['whereRaw'] ?? [])
+            ->relationCount($relations ?? [])
+            ->relation($relations ?? [])
+            ->customJoin($join ?? [])
+            ->customGroupBy($extend['groupBy'] ?? [])
+            ->customOrderBy($orderBy ?? [])
             ->paginate($perpage)
             ->withQueryString()
             ->withPath(env('APP_URL') . $extend['path']);

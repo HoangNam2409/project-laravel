@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePostCatalogueRequest;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostCatalogueController extends Controller
 {
@@ -33,6 +34,7 @@ class PostCatalogueController extends Controller
     // Index
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'post.catalogue.index');
         $post_catalogues = $this->postCatalogueService->paginate($request);
         $config = $this->config();
         $config['seo'] = config('apps.postcatalogue');
@@ -44,6 +46,7 @@ class PostCatalogueController extends Controller
     // Create
     public function create()
     {
+        Gate::authorize('modules', 'post.catalogue.create');
         $config = $this->config_general();
         $config['seo'] = config('apps.postcatalogue');
         $config['method'] = 'create';
@@ -67,6 +70,7 @@ class PostCatalogueController extends Controller
     // Edit
     public function edit($id)
     {
+        Gate::authorize('modules', 'post.catalogue.update');
         $language_id = 1;
         $post_catalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $language_id);
         $config = $this->config_general();
@@ -93,6 +97,7 @@ class PostCatalogueController extends Controller
     // Delete
     public function delete($id)
     {
+        Gate::authorize('modules', 'post.catalogue.destroy');
         $language_id = 1;
         $post_catalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $language_id);
         $config['seo'] = config('apps.postcatalogue');

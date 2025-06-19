@@ -16,6 +16,22 @@ return [
             'title' => 'Xoá nhóm bài viết',
         ]
     ],
+
+    'permission' => [
+        'index' => [
+            'title' => 'Quản lý quyền',
+            'tableHeading' => 'Danh sách quyền',
+        ],
+        'create' => [
+            'title' => 'Thêm mới quyền',
+        ],
+        'edit' => [
+            'title' => 'Cập nhật quyền',
+        ],
+        'delete' => [
+            'title' => 'Xoá quyền',
+        ]
+    ],
     'perpage' => 'bản ghi',
     'search' => 'Tìm kiếm',
     'placeHolder' => 'Nhập từ khoá bạn muốn tìm kiếm...',
@@ -50,5 +66,7 @@ return [
     'parent' => 'Chọn danh mục cha',
     'parent_notice' => 'Chọn root nếu không có danh mục cha',
     'avatar' => 'Chọn ảnh đại diện',
-    'advanced' => 'Cấu hình nâng cao'
+    'advanced' => 'Cấu hình nâng cao',
+    'permission_name' => 'Tên quyền',
+    'canonical' => 'Canonical',
 ];

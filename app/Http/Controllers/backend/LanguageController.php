@@ -10,6 +10,7 @@ use App\Services\Interfaces\LanguageServiceInterface as LanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 
 class LanguageController extends Controller
 {
@@ -28,6 +29,7 @@ class LanguageController extends Controller
     // Index
     public function index(Request $request)
     {
+        Gate::authorize('modules', 'language.index');
         $languages = $this->languageService->paginate($request);
         $config = $this->config();
         $config['seo'] = config('apps.language');
@@ -39,6 +41,7 @@ class LanguageController extends Controller
     // Create
     public function create()
     {
+        Gate::authorize('modules', 'language.create');
         $config = $this->config_general();
         $config['seo'] = config('apps.language');
         $config['method'] = 'create';
@@ -61,6 +64,7 @@ class LanguageController extends Controller
     // Edit
     public function edit($id)
     {
+        Gate::authorize('modules', 'language.update');
         $language = $this->languageRepository->findById($id);
         $config = $this->config_general();
         $config['seo'] = config('apps.language');
@@ -84,6 +88,7 @@ class LanguageController extends Controller
     // Delete
     public function delete($id)
     {
+        Gate::authorize('modules', 'language.destroy');
         $language = $this->languageRepository->findById($id);
         $config['seo'] = config('apps.language');
         $template = 'backend.language.delete';
